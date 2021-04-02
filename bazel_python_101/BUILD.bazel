@@ -1,0 +1,25 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+py_library(
+  name = "greet",
+  srcs = ["greet.py"]
+)
+
+load("@py_deps//:requirements.bzl", "requirement")
+
+py_library(
+  name = "reqlib",
+  srcs = ["reqlib.py"],
+  deps = [
+    requirement("requests")
+  ]
+)
+
+py_binary(
+  name = "main",
+  srcs = ["main.py"],
+  deps = [
+    ":greet",
+    ":reqlib"
+  ]
+)
